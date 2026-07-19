@@ -11,13 +11,11 @@
         :root {
             --primary: #7da2a9; 
             --primary-dark: #3a5c68; 
-            --bg-color: #fcfcfc; /* Putih Soft */
-            --bg-accent: #f2f6f7; /* Biru Soft Terang */
+            --bg-color: #fcfcfc; 
+            --bg-accent: #f2f6f7; 
             --text-dark: #2c3e50; 
-            
-            /* WARNA MOTIF ALAM & BATIK */
-            --motif-green: #89a88a; /* Hijau Soft Daun */
-            --motif-brown: #b89c84; /* Coklat Soft Batik */
+            --motif-green: #89a88a; 
+            --motif-brown: #b89c84; 
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,7 +23,6 @@
         .reveal { opacity: 0; transform: translateY(40px); transition: all 1s ease-out; }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* COVER PAGE - TANPA FOTO, FULL GRADIENT SOFT */
         #cover-page {
             position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
             background: radial-gradient(circle at center, var(--bg-color) 0%, var(--bg-accent) 100%);
@@ -45,21 +42,17 @@
         section { padding: 80px 20px; text-align: center; position: relative; overflow: hidden; }
         .section-title { font-family: var(--font-serif); font-size: 2.8rem; font-style: italic; color: var(--primary-dark); margin-bottom: 30px; position: relative; z-index: 2; }
         
-        /* SISTEM POHON MENJALAR MELINGKARI BINGKAI (ANTI-ERROR) */
         .vine-wrapper { position: relative; display: inline-block; padding: 10px; margin: 0 auto 20px auto; z-index: 2; }
         .arch-img { width: 240px; height: 340px; object-fit: cover; border-radius: 120px 120px 15px 15px; border: 4px solid #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.1); display: block; position: relative; z-index: 2; }
         
-        /* Tangkai Pohon */
         .vine-line { position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 2.5px solid var(--motif-green); border-radius: 130px 130px 22px 22px; pointer-events: none; z-index: 3; }
-        /* Daun & Bunga yang menempel di tangkai */
         .vine-leaf { position: absolute; color: var(--motif-green); font-size: 1.8rem; filter: drop-shadow(1px 2px 2px rgba(0,0,0,0.1)); z-index: 4; }
         .vl-1 { top: 12%; left: -15px; transform: rotate(-45deg); }
-        .vl-2 { top: -15px; left: 50%; transform: rotate(45deg) translateX(-50%); color: var(--motif-brown); font-size: 1.5rem; } /* Bunga Coklat */
+        .vl-2 { top: -15px; left: 50%; transform: rotate(45deg) translateX(-50%); color: var(--motif-brown); font-size: 1.5rem; } 
         .vl-3 { top: 40%; right: -15px; transform: rotate(105deg); }
         .vl-4 { bottom: 25%; left: -15px; transform: rotate(-100deg); color: var(--motif-brown); font-size: 1.5rem; }
         .vl-5 { bottom: 5%; right: -10px; transform: rotate(150deg); }
 
-        /* ELEMEN DAUN DI SUDUT LAYAR */
         .corner-vine { position: absolute; font-size: 5rem; color: var(--motif-green); opacity: 0.15; pointer-events: none; z-index: 0; }
         .cv-tl { top: -20px; left: -20px; transform: rotate(135deg); }
         .cv-br { bottom: -20px; right: -20px; transform: rotate(-45deg); }
@@ -91,7 +84,6 @@
     <audio id="bg-music" loop><source src="https://files.catbox.moe/hhmzrd.mp4" type="audio/mpeg"></audio>
     <button id="music-btn" onclick="toggleMusic()"><i class="fas fa-music"></i></button>
 
-    <!-- COVER PAGE MINIMALIS TANPA FOTO -->
     <div id="cover-page">
         <i class="fas fa-leaf corner-vine cv-tl"></i>
         <i class="fas fa-spa corner-vine cv-br"></i>
@@ -103,15 +95,30 @@
     </div>
 
     <div id="main-content">
-        <!-- PROFIL DENGAN POHON MENJALAR -->
-        <section class="couple" style="background-color: var(--bg-accent); padding-top: 100px;">
+        <!-- BAGIAN YANG KEMBALI: WE ARE GETTING MARRIED -->
+        <section class="reveal" style="padding-top: 100px;">
+            <i class="fas fa-leaf corner-vine cv-tl" style="opacity: 0.08; font-size: 8rem; top: 5%;"></i>
+            <div class="vine-wrapper">
+                <div class="vine-line"></div>
+                <i class="fas fa-leaf vine-leaf vl-1"></i>
+                <i class="fas fa-spa vine-leaf vl-2"></i>
+                <i class="fas fa-leaf vine-leaf vl-3"></i>
+                <i class="fas fa-spa vine-leaf vl-4"></i>
+                <i class="fas fa-leaf vine-leaf vl-5"></i>
+                <img src="https://i.ibb.co.com/FkTZCXrH/nikah2.png" alt="Quote Photo" class="arch-img">
+            </div>
+            <h2 class="section-title">We Are Getting Married</h2>
+            <p style="max-width: 600px; margin: 0 auto; font-style: italic; color: #555; line-height: 1.8; font-size: 0.95rem; position: relative; z-index: 2;">
+                "Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu isteri-isteri dari jenismu sendiri, supaya kamu cenderung dan merasa tenteram kepadanya."
+            </p>
+        </section>
+                <section class="couple reveal" style="background-color: var(--bg-accent);">
             <i class="fas fa-leaf corner-vine cv-tl"></i>
             <i class="fas fa-spa corner-vine cv-tr" style="top: 20%; right: -30px;"></i>
             
-            <h2 class="section-title reveal">Groom & Bride</h2>
+            <h2 class="section-title">Groom & Bride</h2>
             <div class="couple-wrapper">
                 <div class="person reveal">
-                    <!-- BINGKAI FOTO ALIZA -->
                     <div class="vine-wrapper">
                         <div class="vine-line"></div>
                         <i class="fas fa-leaf vine-leaf vl-1"></i>
@@ -125,8 +132,8 @@
                     <p style="font-weight: 500; color: var(--text-dark); font-size: 1.05rem;">Aliza Eka Cahya Pangesti</p>
                     <p>Putri dari Bpk. Erwin & Ibu Nama Ibu</p>
                 </div>
-                                <div class="person reveal">
-                    <!-- BINGKAI FOTO RENOOO -->
+                
+                <div class="person reveal">
                     <div class="vine-wrapper">
                         <div class="vine-line"></div>
                         <i class="fas fa-leaf vine-leaf vl-1"></i>
@@ -143,9 +150,7 @@
             </div>
         </section>
 
-        <!-- EVENTS -->
         <section class="events reveal">
-            <i class="fas fa-leaf corner-vine cv-tl" style="opacity: 0.08; font-size: 8rem; top: 10%;"></i>
             <h2 class="section-title">Save The Date</h2>
             <div class="countdown reveal">
                 <div class="time-box"><span id="hari">00</span><p>Hari</p></div><div class="time-box"><span id="jam">00</span><p>Jam</p></div>
@@ -169,9 +174,7 @@
                 </div>
             </div>
         </section>
-
-        <!-- GALLERY -->
-        <section class="gallery reveal" style="background-color: var(--bg-accent);">
+                <section class="gallery reveal" style="background-color: var(--bg-accent);">
             <i class="fas fa-spa corner-vine cv-tr"></i>
             <h2 class="section-title">Our Gallery</h2>
             <div class="gallery-vertical">
@@ -179,7 +182,7 @@
                 <img class="reveal" src="https://i.ibb.co.com/FkTZCXrH/nikah2.png" alt="Galeri 2">
             </div>
         </section>
-                <!-- STORY -->
+
         <section class="story reveal">
             <h2 class="section-title">Love Story</h2>
             <div class="story-container">
@@ -194,7 +197,6 @@
             </div>
         </section>
 
-        <!-- GIFT & QRIS FOTO -->
         <section class="gift reveal" style="background-color: var(--bg-accent);">
             <i class="fas fa-leaf corner-vine cv-br"></i>
             <h2 class="section-title">Love Gift</h2>
@@ -232,17 +234,16 @@
         </footer>
     </div>
 
-    <!-- SCRIPT FULLSCREEN & MUSIK -->
+    <!-- SCRIPT -->
     <script>
         const music = document.getElementById('bg-music');
         const musicBtn = document.getElementById('music-btn');
 
         function bukaUndangan() {
-            /* FUNGSI FULLSCREEN - Menyembunyikan Navigasi HP */
             let elem = document.documentElement;
             if (elem.requestFullscreen) { elem.requestFullscreen(); }
-            else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); } /* Safari */
-            else if (elem.msRequestFullscreen) { elem.msRequestFullscreen(); } /* IE11 */
+            else if (elem.webkitRequestFullscreen) { elem.webkitRequestFullscreen(); } 
+            else if (elem.msRequestFullscreen) { elem.msRequestFullscreen(); } 
 
             document.getElementById('cover-page').style.transform = 'translateY(-100vh)';
             const mainContent = document.getElementById('main-content');
