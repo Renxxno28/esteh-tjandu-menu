@@ -13,33 +13,33 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent !important; }
         body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 80px; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 
-        /* HEADER PERBAIKAN TOTAL */
+        /* HEADER: Tinggi ditambah agar Logo Besar bisa masuk dengan sempurna */
         header { 
             background: var(--primary); padding: 15px 20px; 
-            display: flex; align-items: flex-start; /* Menyusun elemen dari atas */
-            position: relative; min-height: 100px; /* Diperbesar agar logo muat */
+            display: flex; align-items: center; 
+            position: relative; height: 110px; 
         }
         
-        /* CABANG KIRI (Disusun ke Bawah Sesuai Permintaan) */
-        .branch-wrapper { z-index: 10; display: flex; flex-direction: column; width: 45%; }
+        /* CABANG KIRI: 100% Teks Tanpa Kotak */
+        .branch-wrapper { z-index: 10; display: flex; flex-direction: column; width: 40%; }
+        .branch-label { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
         
-        .branch-label { font-size: 9px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+        .branch-text-container { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
         
         .branch-select { 
-            background: transparent; color: var(--white); border: none; font-size: 13px; font-weight: 700; 
-            outline: none; box-shadow: none; appearance: none; -webkit-appearance: none; padding-right: 15px; cursor: pointer;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="12" height="12"><path d="M7 10l5 5 5-5z" fill="%23FFFFFF"/></svg>'); 
-            background-repeat: no-repeat; background-position: right center; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; max-width: 100%; margin-bottom: 6px;
+            background: transparent; color: var(--white); border: none; font-size: 15px; font-weight: 700; 
+            outline: none; box-shadow: none; appearance: none; -webkit-appearance: none; padding: 0; cursor: pointer;
         }
-        .branch-select option { color: #333; background: #fff; font-size: 14px; }
+        /* Style untuk menu pop-up bawaan HP agar lebih bagus */
+        .branch-select option { color: #333; background: #fff; font-size: 16px; padding: 10px; }
         
-        /* Tombol Map Dikecilkan & Taruh Bawah */
-        .map-btn { font-size: 10px; color: #000; background: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 5px; padding: 4px 8px; border-radius: 12px; width: fit-content; font-weight: 600; }
+        /* Tombol Map Lebih Rapih */
+        .map-btn { font-size: 11px; color: #000; background: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 5px; padding: 4px 12px; border-radius: 20px; width: fit-content; font-weight: 600; box-shadow: 0 2px 4px rgba(0,0,0,0.15); }
 
-        /* LOGO TENGAH: DIPERBESAR SECARA SIGNIFIKAN */
+        /* LOGO TENGAH: UKURAN MAKSIMAL DAN PAS */
         .header-logo { 
             position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-            height: 75px; /* LOGO SEKARANG JAUH LEBIH BESAR */
+            height: 90px; /* DIBUAT SANGAT BESAR */
             width: auto; object-fit: contain; z-index: 1; pointer-events: none;
         }
                 /* BAGIAN 2 - KATEGORI, KARTU MENU & MODAL */
@@ -89,19 +89,25 @@
     </style>
 </head>
 <body oncontextmenu="return false;">
-    <!-- BAGIAN 3 - HEADER TENGAH LOGO & CABANG VERTIKAL KIRI -->
+    <!-- BAGIAN 3 - HEADER TENGAH LOGO MAKSIMAL & CABANG TEKS MURNI -->
     
     <header>
-        <!-- Kiri: Susunan Vertikal (Lokasi -> Cabang -> Maps) -->
+        <!-- Kiri: Susunan Vertikal 100% Clean -->
         <div class="branch-wrapper">
             <span class="branch-label">Lokasi</span>
-            <select id="branchSelect" class="branch-select" onchange="changeBranch()">
-                <option value="Lirboyo">Lirboyo</option>
-                <option value="Penanggungan">Penanggungan</option>
-                <option value="Tepus">Tepus</option>
-                <option value="Kaliombo">Kaliombo</option>
-                <option value="Ngletih">Ngletih</option>
-            </select>
+            
+            <div class="branch-text-container">
+                <select id="branchSelect" class="branch-select" onchange="changeBranch()">
+                    <option value="Lirboyo">Lirboyo</option>
+                    <option value="Penanggungan">Penanggungan</option>
+                    <option value="Tepus">Tepus</option>
+                    <option value="Kaliombo">Kaliombo</option>
+                    <option value="Ngletih">Ngletih</option>
+                </select>
+                <!-- Ikon Kecil Indikator Dropdown Teks -->
+                <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: var(--white); pointer-events: none;"></i>
+            </div>
+
             <a id="branchMap" href="#" target="_blank" class="map-btn" title="Buka di Maps">
                 <i class="fa-solid fa-map-location-dot"></i> Maps
             </a>
