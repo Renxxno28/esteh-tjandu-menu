@@ -13,31 +13,32 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent !important; }
         body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 80px; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 
-        /* HEADER PERBAIKAN: Lebih lega untuk Logo Besar */
+        /* HEADER: Ditinggikan agar Logo Raksasa bisa masuk sempurna */
         header { 
             background: var(--primary); padding: 15px 20px; 
             display: flex; align-items: flex-start; 
-            position: relative; height: 115px; /* Tinggi ditambah agar logo muat besar */
+            position: relative; height: 130px; 
         }
         
-        /* CABANG KIRI: Super Bersih, Teks Murni, Tanpa Panah */
-        .branch-wrapper { z-index: 10; display: flex; flex-direction: column; width: 45%; gap: 4px; }
+        /* CABANG KIRI: Dibuat lebih kecil, rapi, dan lega */
+        .branch-wrapper { z-index: 10; display: flex; flex-direction: column; width: 40%; gap: 3px; margin-top: 5px; }
         
-        .branch-label { font-size: 10px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px; }
+        .branch-label { font-size: 9px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* Teks Cabang (Trigger Custom UI) */
+        /* Teks Cabang Dikecilkan agar tidak nabrak logo */
         .branch-trigger { 
-            font-size: 16px; font-weight: 700; color: var(--white); 
+            font-size: 13px; font-weight: 600; color: var(--white); 
             cursor: pointer; padding: 0; margin: 0; border: none; background: transparent;
-            text-align: left;
+            text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         
-        .map-btn { font-size: 11px; color: #000; background: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 5px; padding: 5px 10px; border-radius: 12px; width: fit-content; font-weight: 700; margin-top: 2px;}
+        /* Tombol Maps Mini */
+        .map-btn { font-size: 9px; color: #000; background: var(--secondary); text-decoration: none; display: flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 8px; width: fit-content; font-weight: 700; margin-top: 2px;}
 
-        /* LOGO TENGAH: UKURAN RAKSASA */
+        /* LOGO TENGAH: UKURAN SUPER RAKSASA MAKSIMAL */
         .header-logo { 
             position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
-            height: 90px; /* SANGAT BESAR SESUAI REQUEST */
+            height: 110px; /* Ukuran dibesarkan drastis */
             width: auto; object-fit: contain; z-index: 1; pointer-events: none;
         }
                 /* BAGIAN 2 - KATEGORI, KARTU MENU & MODAL CUSTOM */
@@ -133,7 +134,7 @@
     </div>
         <!-- BAGIAN 4 - SEMUA MODAL (POP-UP) -->
 
-    <!-- MODAL CUSTOM CABANG (Pengganti Bawaan Chrome) -->
+    <!-- MODAL CUSTOM CABANG -->
     <div class="modal-overlay" id="customBranchModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -243,9 +244,9 @@
         };
 
         let cart = []; let currentItem = {};
-        let activeBranch = "Lirboyo"; // Cabang default
+        let activeBranch = "Lirboyo";
 
-        // FUNGSI CUSTOM CABANG (Tanpa bawaan Chrome)
+        // FUNGSI CUSTOM CABANG
         function openBranchModal() {
             document.getElementById('customBranchModal').classList.add('active');
         }
@@ -255,7 +256,6 @@
             document.getElementById('currentBranchName').innerText = branchName;
             document.getElementById('branchMap').href = mapLink;
             
-            // Hapus centang dari yang lain, beri centang ke yang dipilih
             let items = document.querySelectorAll('.branch-list-item');
             items.forEach(i => i.classList.remove('selected'));
             element.classList.add('selected');
