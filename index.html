@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Es Teh Tjandu - Order Web</title>
+    <title>Es Teh Tjandu Indonesia</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* BAGIAN 1 - CSS DASAR & HEADER */
         :root {
-            --primary: #0F7142; /* Hijau khas */
-            --secondary: #FFD100; /* Kuning harga */
+            --primary: #0F7142; 
+            --secondary: #FFD100; 
             --bg-color: #F8F9FA;
             --text-dark: #333;
             --white: #fff;
@@ -18,23 +18,35 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background-color: var(--bg-color); color: var(--text-dark); padding-bottom: 80px; }
         
-        /* Header */
-        header { background-color: var(--primary); color: var(--white); padding: 15px 20px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        header h1 { font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        header p { font-size: 12px; opacity: 0.9; margin-top: 5px; }
+        /* Solusi Bug: Sticky Container (Menggabungkan semua agar turun bersamaan) */
+        .sticky-container { position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.1); background: var(--primary); }
+        
+        /* Top Bar untuk Pilihan Cabang */
+        .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #0b5934; color: var(--white); font-size: 13px; }
+        .top-bar select { background: transparent; color: var(--white); border: none; font-size: 13px; font-weight: bold; outline: none; cursor: pointer; }
+        .top-bar select option { color: #333; background: var(--white); }
+        
+        /* Header Inti */
+        header { color: var(--white); padding: 15px 20px 10px; text-align: center; }
+        header h1 { font-size: 20px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 5px; }
+        
+        /* Info Cabang (Alamat & Maps) */
+        .branch-info { background: #eef5f0; color: var(--primary); padding: 8px 15px; font-size: 11px; text-align: center; line-height: 1.4; border-bottom: 1px solid #ddd; }
+        .branch-info a { color: #0F7142; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 3px; }
+        .branch-info a:hover { text-decoration: underline; }
         
         /* Kategori Tab */
-        .category-nav { display: flex; overflow-x: auto; background: var(--white); padding: 10px; border-bottom: 1px solid #ddd; position: sticky; top: 60px; z-index: 99; white-space: nowrap; }
+        .category-nav { display: flex; overflow-x: auto; background: var(--white); padding: 10px; white-space: nowrap; }
         .category-nav::-webkit-scrollbar { display: none; }
         .cat-btn { background: none; border: none; padding: 8px 16px; margin-right: 10px; border-radius: 20px; font-weight: 600; color: #666; cursor: pointer; transition: 0.3s; }
         .cat-btn.active { background-color: var(--primary); color: var(--white); }
-        
-        /* Grid Menu */
+                /* Grid Menu */
         .menu-section { padding: 20px; display: none; }
         .menu-section.active { display: block; }
         .section-title { font-size: 18px; color: var(--primary); margin-bottom: 15px; border-left: 4px solid var(--secondary); padding-left: 10px; }
         .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-                /* Kartu Produk */
+        
+        /* Kartu Produk */
         .card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.05); cursor: pointer; position: relative; }
         .card img { width: 100%; height: 150px; object-fit: contain; padding: 10px; background: #eef5f0; }
         .card-body { padding: 12px; }
@@ -45,7 +57,6 @@
         /* Floating Cart */
         .floating-cart { position: fixed; bottom: 20px; left: 20px; right: 20px; background: var(--primary); color: var(--white); padding: 15px 20px; border-radius: 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 5px 15px rgba(15, 113, 66, 0.4); z-index: 100; cursor: pointer; display: none; }
         .floating-cart.visible { display: flex; }
-        .cart-info { font-weight: 600; }
 
         /* Modal / Popup */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); display: none; z-index: 999; justify-content: center; align-items: flex-end; }
@@ -53,7 +64,6 @@
         .modal-content { background: var(--white); width: 100%; max-width: 500px; border-radius: 20px 20px 0 0; padding: 20px; animation: slideUp 0.3s ease-out; max-height: 85vh; overflow-y: auto; }
         @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
         
-        /* Modal Item Detail */
         .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
         .close-btn { background: none; border: none; font-size: 20px; cursor: pointer; color: #666; }
         .qty-control { display: flex; align-items: center; gap: 15px; margin: 20px 0; }
@@ -61,7 +71,6 @@
         textarea, input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; margin-top: 5px; margin-bottom: 15px; font-size: 14px; }
         .btn-full { width: 100%; background: var(--primary); color: var(--white); border: none; padding: 15px; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
         
-        /* Cart List */
         .cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 10px 0; }
         .cart-item-info h4 { font-size: 14px; }
         .cart-item-info p { font-size: 12px; color: #777; }
@@ -69,34 +78,55 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <h1><i class="fa-solid fa-leaf"></i> Es Teh Tjandu</h1>
-        <p>Kediri & Sekitarnya</p>
-    </header>
+    <!-- STICKY CONTAINER UTAMA (Menghindari Bug Text Ketutup) -->
+    <div class="sticky-container">
+        <!-- Top Bar Lokasi Cabang -->
+        <div class="top-bar">
+            <div><i class="fa-solid fa-location-dot"></i> Cabang:</div>
+            <select id="branchSelect" onchange="changeBranch()">
+                <option value="Lirboyo">Tjandu Lirboyo</option>
+                <option value="Penanggungan">Tjandu Penanggungan</option>
+                <option value="Tepus">Tjandu Tepus</option>
+                <option value="Kaliombo">Tjandu Kaliombo</option>
+                <option value="Ngletih">Tjandu Ngletih</option>
+            </select>
+        </div>
+        
+        <!-- Header Judul -->
+        <header>
+            <h1><i class="fa-solid fa-leaf"></i> Es Teh Tjandu Indonesia</h1>
+        </header>
 
-    <!-- Navigasi Kategori -->
-    <div class="category-nav">
-        <button class="cat-btn active" onclick="showCategory('tea')">Tea Series</button>
-        <button class="cat-btn" onclick="showCategory('blend')">Blend Series</button>
-        <button class="cat-btn" onclick="showCategory('squash')">Squash Series</button>
-        <button class="cat-btn" onclick="showCategory('yakult')">Yakult Series</button>
+        <!-- Info Lokasi & Maps (Berubah Otomatis) -->
+        <div class="branch-info">
+            <span id="branchAddress">Jl. H. Winarto No.11, Campurejo, Kec. Mojoroto.</span><br>
+            <a id="branchMap" href="https://share.google/imlE5BtRm1I93q4fP" target="_blank">
+                <i class="fa-solid fa-map-location-dot"></i> Buka Google Maps
+            </a>
+        </div>
+
+        <!-- Navigasi Kategori Menu -->
+        <div class="category-nav">
+            <button class="cat-btn active" onclick="showCategory('tea')">Tea Series</button>
+            <button class="cat-btn" onclick="showCategory('blend')">Blend Series</button>
+            <button class="cat-btn" onclick="showCategory('squash')">Squash Series</button>
+            <button class="cat-btn" onclick="showCategory('yakult')">Yakult Series</button>
+        </div>
     </div>
 
-    <!-- Area Menu (Diisi Otomatis oleh JavaScript) -->
+    <!-- Area Menu (Isinya masuk lewat Javascript) -->
     <main id="menu-container"></main>
 
     <!-- Floating Cart Button -->
     <div class="floating-cart" id="floatingCart" onclick="openCart()">
-        <div class="cart-info">
+        <div style="font-weight: 600;">
             <i class="fa-solid fa-shopping-cart"></i> <span id="cartCount">0</span> Item
         </div>
         <div>
             Total: Rp <span id="cartTotalBtn">0</span> <i class="fa-solid fa-chevron-right" style="margin-left:10px;"></i>
         </div>
     </div>
-
-    <!-- Modal 1: Detail Produk -->
+        <!-- Modal 1: Detail Produk -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -111,11 +141,12 @@
                 <button class="qty-btn" onclick="updateQty(1)">+</button>
             </div>
             <label>Request Khusus (Opsional):</label>
-            <textarea id="modalRequest" rows="2" placeholder="Contoh: Esnya sedikit saja, jangan terlalu manis..."></textarea>
+            <textarea id="modalRequest" rows="2" placeholder="Contoh: Es sedikit saja..."></textarea>
             <button class="btn-full" onclick="addToCart()">Masukkan ke Keranjang</button>
         </div>
     </div>
-        <!-- Modal 2: Keranjang -->
+
+    <!-- Modal 2: Keranjang -->
     <div class="modal-overlay" id="cartModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -131,7 +162,7 @@
         </div>
     </div>
 
-    <!-- Modal 3: Checkout Form -->
+    <!-- Modal 3: Checkout -->
     <div class="modal-overlay" id="checkoutModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -141,35 +172,35 @@
             <form id="checkoutForm" onsubmit="event.preventDefault(); processCheckout();">
                 <label>Nama Pemesan:</label>
                 <input type="text" id="custName" required placeholder="Masukkan nama Anda">
-                
                 <label>Nomor Telepon / WA:</label>
                 <input type="number" id="custPhone" required placeholder="08xxxxxxxxxx">
-                
-                <label>Email (Opsional):</label>
-                <input type="email" id="custEmail" placeholder="email@contoh.com">
-                
                 <label>Metode Pembayaran:</label>
                 <select id="paymentMethod" required>
                     <option value="QRIS">QRIS</option>
                     <option value="Transfer Bank BCA">Transfer Bank BCA</option>
                     <option value="Bayar di Kasir (Cash)">Bayar Langsung di Kasir</option>
                 </select>
-                
                 <label>Metode Pengambilan:</label>
                 <select id="deliveryMethod" required>
                     <option value="Ambil Sendiri (Takeaway)">Ambil Sendiri</option>
                     <option value="Dianter (Delivery)">Dianter</option>
                 </select>
-                
                 <button type="submit" class="btn-full" style="background:#25D366; margin-top:10px;">
                     <i class="fa-brands fa-whatsapp"></i> Kirim Pesanan via WA
                 </button>
             </form>
         </div>
     </div>
+        <script>
+        // Data Info Cabang
+        const branches = {
+            Lirboyo: { address: "Jl. H. Winarto No.11, Campurejo, Kec. Mojoroto.", map: "https://share.google/imlE5BtRm1I93q4fP" },
+            Penanggungan: { address: "Pertokoan Mitos, Jl. Penanggungan No. Blok F, Bandar Lor, Kec. Mojoroto.", map: "https://share.google/oBrzVzst8k3OXAml6" },
+            Tepus: { address: "Jl. Joyoboyo 3, Tepus, Sukorejo, Kec. Ngasem.", map: "https://share.google/mGwuGACSf0Hq75Qf4" },
+            Kaliombo: { address: "Area Kaliombo, Kec. Kota, Kota Kediri.", map: "https://share.google/vmnL0H9GD654lcPPA" },
+            Ngletih: { address: "Jl. Ngletih, Bawang, Kec. Pesantren.", map: "https://share.google/uiujzZGXztegz5UtL" }
+        };
 
-    <script>
-        // DATA MENU DARI GAMBAR
         const menuData = {
             tea: [
                 { id: 't1', name: 'Original Tea', price: 5000 }, { id: 't2', name: 'Apple Tea', price: 5000 },
@@ -193,18 +224,24 @@
                 { id: 'y3', name: 'Yakult Leci', price: 8000 }, { id: 'y4', name: 'Yakult Melon', price: 8000 }, { id: 'y5', name: 'Yakult Mangga', price: 8000 }
             ]
         };
-                let cart = [];
+
+        let cart = [];
         let currentItem = {};
+
+        // Fungsi Update Info Cabang
+        function changeBranch() {
+            const selected = document.getElementById('branchSelect').value;
+            document.getElementById('branchAddress').innerText = branches[selected].address;
+            document.getElementById('branchMap').href = branches[selected].map;
+        }
 
         // Render Menu ke Halaman
         function renderMenu() {
             const container = document.getElementById('menu-container');
             container.innerHTML = '';
-            
             for (const category in menuData) {
                 let sectionHTML = `<div id="${category}-section" class="menu-section ${category === 'tea' ? 'active' : ''}">
                                    <h2 class="section-title">${category.toUpperCase()} SERIES</h2><div class="grid">`;
-                
                 menuData[category].forEach(item => {
                     sectionHTML += `
                     <div class="card" onclick="openProductModal('${item.name}', ${item.price})">
@@ -226,6 +263,7 @@
             event.target.classList.add('active');
             document.querySelectorAll('.menu-section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(`${cat}-section`).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll otomatis ke atas dengan halus
         }
 
         function openProductModal(name, price) {
@@ -239,10 +277,7 @@
 
         function closeModal(id) { document.getElementById(id).classList.remove('active'); }
         function updateQty(change) {
-            if (currentItem.qty + change > 0) {
-                currentItem.qty += change;
-                document.getElementById('modalQty').innerText = currentItem.qty;
-            }
+            if (currentItem.qty + change > 0) { currentItem.qty += change; document.getElementById('modalQty').innerText = currentItem.qty; }
         }
 
         function addToCart() {
@@ -260,9 +295,7 @@
                 document.getElementById('cartCount').innerText = cart.length;
                 document.getElementById('cartTotalBtn').innerText = total.toLocaleString('id-ID');
                 document.getElementById('cartTotalDisplay').innerText = total.toLocaleString('id-ID');
-            } else {
-                cartBtn.classList.remove('visible');
-            }
+            } else { cartBtn.classList.remove('visible'); }
         }
 
         function openCart() {
@@ -282,22 +315,21 @@
             document.getElementById('cartModal').classList.add('active');
         }
 
-        function removeItem(index) {
-            cart.splice(index, 1);
-            updateCartUI();
-            openCart();
-            if(cart.length === 0) closeModal('cartModal');
-        }
-
+        function removeItem(index) { cart.splice(index, 1); updateCartUI(); openCart(); if(cart.length === 0) closeModal('cartModal'); }
         function openCheckout() { closeModal('cartModal'); document.getElementById('checkoutModal').classList.add('active'); }
 
         function processCheckout() {
+            // Ambil Nama Cabang yang dipilih dari Dropdown
+            const branchDropdown = document.getElementById('branchSelect');
+            const selectedBranchName = branchDropdown.options[branchDropdown.selectedIndex].text;
+            
             const name = document.getElementById('custName').value;
             const phone = document.getElementById('custPhone').value;
             const payment = document.getElementById('paymentMethod').value;
             const delivery = document.getElementById('deliveryMethod').value;
             
-            let orderText = `*HALO ES TEH TJANDU!* 🍃%0A%0ASaya ingin memesan:%0A`;
+            // Masukkan Cabang ke Format WA
+            let orderText = `*HALO ES TEH TJANDU!* 🍃%0A(Pesanan untuk *${selectedBranchName}*)%0A%0ASaya ingin memesan:%0A`;
             let total = 0;
             
             cart.forEach((item, i) => {
@@ -308,16 +340,16 @@
             orderText += `%0A%0A*Total Belanja:* Rp ${total.toLocaleString('id-ID')}%0A`;
             orderText += `%0A*DETAIL PELANGGAN:*%0A- Nama: ${name}%0A- No WA: ${phone}%0A- Pengambilan: ${delivery}%0A- Pembayaran: ${payment}%0A%0AMohon konfirmasinya ya Min. Terima kasih! 🙏`;
 
-            // GANTI NOMOR DI BAWAH INI DENGAN NOMOR WA TOKO (Gunakan 62 bukan 0)
             const noWhatsApp = "6285749776994"; 
-            const waUrl = `https://wa.me/${noWhatsApp}?text=${orderText}`;
-            
-            window.open(waUrl, '_blank');
+            window.open(`https://wa.me/${noWhatsApp}?text=${orderText}`, '_blank');
             cart = []; updateCartUI(); closeModal('checkoutModal');
         }
 
-        // Inisialisasi awal
-        window.onload = renderMenu;
+        // Jalankan inisialisasi awal saat halaman dibuka
+        window.onload = () => { 
+            changeBranch(); // Set default cabang pertama (Lirboyo)
+            renderMenu(); 
+        };
     </script>
 </body>
 </html>
