@@ -11,12 +11,12 @@
     <style>
         /* Variabel Warna Tema */
         :root {
-            --bg: #0a0a0a;          /* Background Utama */
-            --surface: #141414;     /* Background Kartu */
-            --border: #262626;      /* Warna Garis */
-            --text: #ffffff;        /* Teks Utama */
-            --text-muted: #a3a3a3;  /* Teks Sekunder */
-            --accent: #6366f1;      /* Warna Aksen (Indigo) */
+            --bg: #0a0a0a;
+            --surface: #141414;
+            --border: #262626;
+            --text: #ffffff;
+            --text-muted: #a3a3a3;
+            --accent: #6366f1;
             --accent-hover: #4f46e5;
         }
 
@@ -35,7 +35,7 @@
             overflow-x: hidden;
         }
 
-        /* Navigasi / Header Atas (Efek Kaca / Glassmorphism) */
+        /* Navigasi / Header Atas */
         nav {
             position: fixed;
             width: 100%;
@@ -47,24 +47,31 @@
             border-bottom: 1px solid var(--border);
             padding: 20px 5%;
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* MEMBUAT LOGO KE TENGAH */
             align-items: center;
         }
 
         .logo {
             font-size: 1.5rem;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             background: linear-gradient(90deg, #ffffff, #6366f1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        /* Nav Links disembunyikan untuk tampilan ultra minimalis */
+        .nav-links {
+            position: absolute;
+            right: 5%;
         }
 
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
-            margin-left: 2.5rem;
+            margin-left: 2rem;
             font-weight: 400;
             font-size: 0.95rem;
             transition: color 0.3s;
@@ -74,7 +81,13 @@
             color: var(--text);
         }
 
-        /* Bagian Hero (Sambutan Utama) */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Bagian Hero */
         header {
             height: 100vh;
             display: flex;
@@ -83,7 +96,6 @@
             align-items: center;
             text-align: center;
             padding: 0 20px;
-            /* Efek gradient cahaya di tengah */
             background: radial-gradient(circle at center, #1a1b35 0%, var(--bg) 60%);
         }
 
@@ -125,13 +137,30 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
             transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
         }
 
         .btn-primary:hover {
             background-color: var(--accent-hover);
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid var(--border);
+            margin-top: 10px;
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            background: transparent;
+            box-shadow: none;
         }
 
         /* Bagian Produk */
@@ -160,7 +189,6 @@
             gap: 2rem;
         }
 
-        /* Desain Kartu Produk */
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -169,6 +197,7 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
             flex-direction: column;
+            cursor: pointer; /* Memberi efek bisa diklik */
         }
 
         .card:hover {
@@ -199,6 +228,10 @@
             font-size: 0.95rem;
             margin-bottom: 2rem;
             flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
 
         .card-footer {
@@ -215,23 +248,115 @@
             color: var(--text);
         }
 
-        .btn-buy {
-            padding: 8px 20px;
-            background: transparent;
+        /* MODAL / POPUP CSS */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--surface);
             border: 1px solid var(--border);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
             color: var(--text);
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 600;
-            transition: all 0.3s;
+        }
+
+        #m-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        #m-price {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        #m-desc {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            white-space: pre-line;
+        }
+
+        /* UI Pembayaran */
+        .payment-section {
+            margin-bottom: 30px;
+        }
+        
+        .payment-section h4 {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .pay-option {
+            display: block;
+            margin-bottom: 12px;
             cursor: pointer;
         }
 
-        .btn-buy:hover {
+        .pay-input {
+            display: none;
+        }
+
+        .pay-box {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.2s ease;
+        }
+
+        .pay-text {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .pay-input:checked + .pay-box {
             border-color: var(--accent);
-            background: var(--accent);
-            color: white;
+            background: rgba(99, 102, 241, 0.1);
         }
 
         /* Footer */
@@ -244,15 +369,14 @@
             margin-top: 4rem;
             background: var(--surface);
         }
-
-        /* Responsif untuk HP */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none; /* Sembunyikan link di mobile agar minimalis */
-            }
-            header h1 {
-                font-size: 3rem;
-            }
+        
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -262,9 +386,7 @@
     <nav>
         <a href="#" class="logo">RENXXNO</a>
         <div class="nav-links">
-            <a href="#home">Home</a>
             <a href="#store">Store</a>
-            <a href="#contact">Contact</a>
         </div>
     </nav>
 
@@ -273,92 +395,222 @@
         <div class="hero-badge">🚀 Premium Monetloader Scripts</div>
         <h1>Elevate Your<br><span>SAMP Experience</span></h1>
         <p>Koleksi script Lua Monetloader terbaik buatan Renxxno. Dioptimalkan untuk performa maksimal, ringan, dan bebas lag.</p>
-        <a href="#store" class="btn-primary">Jelajahi Produk</a>
+        <a href="#store" class="btn-primary" style="width: auto;">Jelajahi Produk</a>
     </header>
 
     <!-- Daftar Produk -->
     <section class="products" id="store">
         <h2 class="section-title">Store Kami</h2>
-        <p class="section-desc">Pilih script sesuai kebutuhan server dan gaya bermainmu.</p>
+        <p class="section-desc">Klik produk untuk melihat detail dan melakukan pembelian.</p>
         
         <div class="grid">
             <!-- Produk 1 -->
-            <div class="card">
+            <div class="card" onclick="openProduct('Modern HUD V2', 'Rp 35.000', 'UI & HUD', 'Fitur Utama:\n• Custom Health & Armor Bar bergaya modern.\n• Radar berbentuk kotak presisi ala GTA V.\n• Notifikasi kill (kill list) yang sangat rapi dan minimalis.\n• Script sangat ringan dan tidak menyebabkan drop FPS.\n\nSangat direkomendasikan untuk player Roleplay dan Freeroam yang bosan dengan tampilan default SAMP.')">
                 <span class="card-tag">UI & HUD</span>
                 <h3>Modern HUD V2</h3>
-                <p>Tampilan interface modern pengganti HUD bawaan SAMP. Mendukung custom HP bar, armor, radar kotak, dan notifikasi kill yang minimalis.</p>
+                <p>Tampilan interface modern pengganti HUD bawaan SAMP. Mendukung custom HP bar, armor, radar kotak, dan notifikasi kill.</p>
                 <div class="card-footer">
                     <span class="price">Rp 35.000</span>
-                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                    <span style="color: var(--accent); font-weight: bold;">➜</span>
                 </div>
             </div>
 
             <!-- Produk 2 -->
-            <div class="card">
+            <div class="card" onclick="openProduct('Memory Optimizer Lua', 'Rp 50.000', 'Performance', 'Fitur Utama:\n• Otomatis membersihkan memory streaming SAMP secara berkala.\n• Mencegah game crash (Warning Opcode) di area padat (mappingan berat).\n• Stabilizer FPS saat bermain di server penuh player.\n• Tidak terdeteksi sebagai cheat (100% aman).\n\nSolusi wajib bagi kamu yang sering mengalami lag atau crash tiba-tiba.')">
                 <span class="card-tag">Performance</span>
                 <h3>Memory Optimizer Lua</h3>
-                <p>Script Monetloader untuk membersihkan memory streaming secara otomatis. Mencegah crash (Warning opcode) saat bermain di server padat.</p>
+                <p>Script Monetloader untuk membersihkan memory streaming secara otomatis. Mencegah crash saat bermain di server padat.</p>
                 <div class="card-footer">
                     <span class="price">Rp 50.000</span>
-                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                    <span style="color: var(--accent); font-weight: bold;">➜</span>
                 </div>
             </div>
 
             <!-- Produk 3 -->
-            <div class="card">
+            <div class="card" onclick="openProduct('Advanced Keybinder', 'Rp 25.000', 'Utility', 'Fitur Utama:\n• Keybinder langsung dari dalam game berbasis Lua.\n• Tidak butuh program eksternal tambahan.\n• Mampu menyimpan puluhan kalimat Roleplay panjang.\n• Support kombinasi tombol (Contoh: ALT + 1).\n\nSangat memudahkan aktivitas Roleplay, PD, EMS, atau mekanik tanpa ribet mengetik manual.')">
                 <span class="card-tag">Utility</span>
                 <h3>Advanced Keybinder</h3>
-                <p>Keybinder in-game berbasis Lua tanpa program eksternal. Bind command RP panjang hanya dengan satu tombol di keyboard/layar sentuh.</p>
+                <p>Keybinder in-game berbasis Lua tanpa program eksternal. Bind command RP panjang hanya dengan satu tombol.</p>
                 <div class="card-footer">
                     <span class="price">Rp 25.000</span>
-                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                    <span style="color: var(--accent); font-weight: bold;">➜</span>
                 </div>
             </div>
 
             <!-- Produk 4 -->
-            <div class="card">
+            <div class="card" onclick="openProduct('Custom Nametags ESP', 'Rp 45.000', 'Visuals', 'Fitur Utama:\n• Ubah jenis font nametag player sesukamu.\n• Tambahkan outline tebal agar tulisan mudah dibaca.\n• Bar darah kustom di bawah nama.\n• Pengaturan jarak pandang (render distance) langsung via config.\n\nMembuat visual saat perang (gang war) atau sekadar berkumpul menjadi jauh lebih jelas dan estetik.')">
                 <span class="card-tag">Visuals</span>
                 <h3>Custom Nametags ESP</h3>
-                <p>Ubah font nametag player, tambahkan outline, bar darah kustom, dan jarak pandang (render distance) nametag yang dapat diatur via config.</p>
+                <p>Ubah font nametag player, tambahkan outline, bar darah kustom, dan jarak pandang nametag via config.</p>
                 <div class="card-footer">
                     <span class="price">Rp 45.000</span>
-                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                    <span style="color: var(--accent); font-weight: bold;">➜</span>
                 </div>
             </div>
             
             <!-- Produk 5 -->
-            <div class="card">
+            <div class="card" onclick="openProduct('Smooth Camera Sync', 'Rp 30.000', 'Mechanic', 'Fitur Utama:\n• Menghilangkan stuttering (patah-patah) pada pergerakan kamera.\n• Sinkronisasi kamera saat mengemudi kendaraan pada kecepatan tinggi.\n• Aim senjata yang jauh lebih smooth dan responsif.\n\nMod wajib untuk meningkatkan handling kendaraan dan akurasi menembak kamu di dalam game.')">
                 <span class="card-tag">Mechanic</span>
                 <h3>Smooth Camera Sync</h3>
-                <p>Perbaikan pergerakan kamera saat di kendaraan atau aim senjata agar lebih halus dan sinkron. Wajib dimiliki untuk player RP & Shooter.</p>
+                <p>Perbaikan pergerakan kamera saat di kendaraan atau aim senjata agar lebih halus dan sinkron.</p>
                 <div class="card-footer">
                     <span class="price">Rp 30.000</span>
-                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                    <span style="color: var(--accent); font-weight: bold;">➜</span>
                 </div>
             </div>
             
             <!-- Produk 6 -->
-            <div class="card">
+            <div class="card" onclick="openProduct('Renxxno Full Pack', 'Rp 150.000', 'Bundle', '🏆 PAKET TERBAIK & PALING HEMAT 🏆\n\nDapatkan SEMUA script buatan Renxxno dalam satu paket pembelian.\n\nKeuntungan:\n• Hemat lebih dari 20%.\n• Gratis update script seumur hidup (Lifetime).\n• Dukungan/Bantuan teknis langsung dari Renxxno.\n• Termasuk script eksklusif yang tidak dijual terpisah.')">
                 <span class="card-tag">Bundle</span>
                 <h3>Renxxno Full Pack</h3>
-                <p>Semua script buatan Renxxno dalam satu paket. Jauh lebih hemat, gratis update seumur hidup, dan mendapat dukungan prioritas.</p>
+                <p>Semua script buatan Renxxno dalam satu paket. Jauh lebih hemat, gratis update seumur hidup.</p>
                 <div class="card-footer">
                     <span class="price">Rp 150.000</span>
-                    <a href="#" class="btn-buy" onclick="alert('Mengarahkan ke Discord/WhatsApp pembelian...')">Beli</a>
+                    <span style="color: var(--accent); font-weight: bold;">➜</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer id="contact">
+    <!-- Footer (Sisa Discord Saja) -->
+    <footer>
         <p>&copy; 2026 Renxxno Store. All rights reserved.</p>
         <p style="margin-top: 10px;">
-            <a href="#" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">Discord</a> | 
-            <a href="#" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">GitHub</a> | 
-            <a href="#" style="color: var(--text-muted); text-decoration: none; margin: 0 10px;">YouTube</a>
+            Bergabung dengan komunitas kami di <a href="https://discord.com/" target="_blank">Discord</a>
         </p>
     </footer>
 
+    <!-- ================= MODAL / POPUP DETAIL PRODUK ================= -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            
+            <div id="step-1">
+                <span class="card-tag" id="m-tag" style="margin-bottom: 10px;">Kategori</span>
+                <h2 id="m-title">Nama Produk</h2>
+                <div id="m-price">Rp 0</div>
+                <p id="m-desc">Deskripsi lengkap produk akan muncul di sini.</p>
+                
+                <button class="btn-primary" onclick="goToPayment()">Beli Sekarang</button>
+            </div>
+
+            <div id="step-2" style="display: none;">
+                <h2 style="margin-bottom: 5px;">Pembayaran</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem;">Pilih metode pembayaran yang kamu inginkan.</p>
+                
+                <div class="payment-section">
+                    <!-- Opsi QRIS -->
+                    <label class="pay-option">
+                        <input type="radio" name="payment_method" value="QRIS" class="pay-input" checked>
+                        <div class="pay-box">
+                            <span style="font-size: 1.5rem; margin-right: 15px;">📱</span>
+                            <span class="pay-text">QRIS (OVO, Dana, Gopay, Spay)</span>
+                        </div>
+                    </label>
+
+                    <!-- Opsi BCA -->
+                    <label class="pay-option">
+                        <input type="radio" name="payment_method" value="Bank BCA" class="pay-input">
+                        <div class="pay-box">
+                            <span style="font-size: 1.5rem; margin-right: 15px;">🏦</span>
+                            <span class="pay-text">Bank BCA</span>
+                        </div>
+                    </label>
+                </div>
+
+                <button class="btn-primary" onclick="processCheckout()">Lanjutkan ke WhatsApp</button>
+                <button class="btn-primary btn-secondary" onclick="backToDetail()">Kembali</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Script Logika -->
+    <script>
+        // Variabel untuk menyimpan data produk yang sedang dipilih
+        let currentProduct = {
+            name: "",
+            price: "",
+            tag: ""
+        };
+
+        const modal = document.getElementById("productModal");
+        const step1 = document.getElementById("step-1");
+        const step2 = document.getElementById("step-2");
+
+        // Fungsi membuka modal saat kartu diklik
+        function openProduct(name, price, tag, desc) {
+            currentProduct.name = name;
+            currentProduct.price = price;
+            currentProduct.tag = tag;
+
+            document.getElementById("m-title").innerText = name;
+            document.getElementById("m-price").innerText = price;
+            document.getElementById("m-tag").innerText = tag;
+            document.getElementById("m-desc").innerText = desc;
+
+            // Pastikan selalu mulai dari Step 1 (Detail Info)
+            step1.style.display = "block";
+            step2.style.display = "none";
+
+            modal.classList.add("active");
+            document.body.style.overflow = "hidden"; // Mencegah scroll di background
+        }
+
+        // Fungsi menutup modal
+        function closeModal() {
+            modal.classList.remove("active");
+            document.body.style.overflow = "auto"; // Mengembalikan scroll
+        }
+
+        // Tutup modal jika user klik area gelap (overlay)
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Beralih ke Step Pembayaran
+        function goToPayment() {
+            step1.style.display = "none";
+            step2.style.display = "block";
+        }
+
+        // Kembali ke Detail Produk
+        function backToDetail() {
+            step2.style.display = "none";
+            step1.style.display = "block";
+        }
+
+        // Proses Checkout ke WhatsApp
+        function processCheckout() {
+            // Ambil metode pembayaran yang dipilih
+            const radios = document.getElementsByName('payment_method');
+            let selectedMethod = "QRIS"; // Default
+            for (let i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    selectedMethod = radios[i].value;
+                    break;
+                }
+            }
+
+            // Nomor WhatsApp tujuan (Format 62 agar langsung otomatis)
+            const waNumber = "6285749776994";
+
+            // Format Pesan
+            const textMessage = `Halo Renxxno! Saya ingin membeli Script Monetloader berikut:%0A%0A` +
+                                `📦 *Produk:* ${currentProduct.name}%0A` +
+                                `💰 *Harga:* ${currentProduct.price}%0A` +
+                                `💳 *Metode Pembayaran:* ${selectedMethod}%0A%0A` +
+                                `Apakah produk ini masih tersedia?`;
+
+            // Buka Link WhatsApp di tab baru
+            const waLink = `https://wa.me/${waNumber}?text=${textMessage}`;
+            window.open(waLink, '_blank');
+            
+            // Tutup modal setelah mengarahkan
+            closeModal();
+        }
+    </script>
 </body>
 </html>
