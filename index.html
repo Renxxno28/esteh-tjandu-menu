@@ -9,9 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* Variabel Warna Tema (Ubah ke Purple Pink Soft) */
+        /* Variabel Warna Tema (Purple Pink Soft) */
         :root {
-            --bg: #0d0912;          /* Latar sangat gelap keunguan */
+            --bg: #0b0710;          /* Latar sangat gelap keunguan */
             --surface: #171120;     /* Kartu/Modal */
             --border: #2d1f3b;      /* Garis batas */
             --text: #ffffff;
@@ -20,13 +20,12 @@
             --accent-hover: #f17ad0;/* Pink saat dihover */
         }
 
-        /* Reset CSS dasar & Anti Copy Paste */
+        /* Reset CSS dasar & Anti Copy Paste/Popup Browser */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Outfit', sans-serif;
-            /* Anti kotak-kotak saat diklik */
             -webkit-tap-highlight-color: transparent; 
             outline: none !important; 
         }
@@ -36,11 +35,19 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
-            /* Anti salin teks (Non-selectable) */
+            /* Anti salin teks & Anti pop-up menu saat ditahan */
+            -webkit-touch-callout: none; 
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
             user-select: none;
+        }
+
+        /* Menghindari drag pada link/gambar */
+        a, img {
+            -webkit-user-drag: none;
+            user-drag: none;
+            -webkit-touch-callout: none;
         }
 
         /* --- ANIMASI KEYFRAMES --- */
@@ -49,19 +56,21 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
         @keyframes pulseGlow {
             0% { box-shadow: 0 0 10px rgba(216, 98, 181, 0.2); }
             50% { box-shadow: 0 0 25px rgba(216, 98, 181, 0.5); }
             100% { box-shadow: 0 0 10px rgba(216, 98, 181, 0.2); }
         }
 
-        /* Terapkan animasi saat load halaman */
-        header, .section-title, .section-desc, .grid {
+        .products, .card {
             animation: fadeIn 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
-
-        /* Menunda kemunculan elemen (stagger effect) */
-        .grid { animation-delay: 0.3s; opacity: 0; }
 
         /* Navigasi / Header Atas */
         nav {
@@ -69,13 +78,13 @@
             width: 100%;
             top: 0;
             z-index: 100;
-            background: rgba(13, 9, 18, 0.8);
+            background: rgba(11, 7, 16, 0.85);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
             padding: 15px 5%;
             display: flex;
-            justify-content: center; /* LOGO DI TENGAH */
+            justify-content: center;
             align-items: center;
         }
 
@@ -90,19 +99,41 @@
             text-transform: uppercase;
         }
 
-        /* Bagian Hero */
+        /* --- BAGIAN HERO BARU (DESAIN MODERN ASIMETRIS) --- */
         header {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            background: radial-gradient(circle at center, #241432 0%, var(--bg) 65%);
+            justify-content: space-between;
+            padding: 120px 8% 50px;
+            background: var(--bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efek Cahaya di Background */
+        header::before {
+            content: '';
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(216, 98, 181, 0.15) 0%, transparent 60%);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        .hero-content {
+            flex: 1;
+            max-width: 650px;
+            position: relative;
+            z-index: 2;
+            text-align: left;
         }
 
         .hero-badge {
+            display: inline-block;
             background: rgba(216, 98, 181, 0.1);
             color: var(--accent);
             padding: 8px 18px;
@@ -115,25 +146,69 @@
             letter-spacing: 1px;
         }
 
-        header h1 {
-            font-size: clamp(2.5rem, 6vw, 5rem);
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
             font-weight: 800;
             margin-bottom: 1rem;
             line-height: 1.1;
-            letter-spacing: -1px;
         }
 
-        header h1 span {
+        .hero-content h1 span {
             color: var(--accent);
-            text-shadow: 0 0 20px rgba(216, 98, 181, 0.3);
         }
 
-        header p {
+        .hero-content p {
             color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 600px;
+            font-size: 1.15rem;
             margin-bottom: 2.5rem;
+            max-width: 550px;
         }
+
+        .hero-visual {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+            position: relative;
+            z-index: 1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Hiasan Visual Ala Coding/Modding di Kanan */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(216, 98, 181, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            width: 350px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .glass-panel .dot-group {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .glass-panel .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #443254;
+        }
+        .glass-panel .dot:nth-child(1) { background: #ff5f56; }
+        .glass-panel .dot:nth-child(2) { background: #ffbd2e; }
+        .glass-panel .dot:nth-child(3) { background: #27c93f; }
+
+        .glass-panel .code-line {
+            height: 10px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            margin-bottom: 12px;
+        }
+        .glass-panel .code-line.w-short { width: 40%; background: var(--accent); }
+        .glass-panel .code-line.w-long { width: 85%; }
+        .glass-panel .code-line.w-mid { width: 65%; }
 
         .btn-primary {
             display: inline-block;
@@ -147,8 +222,6 @@
             cursor: pointer;
             font-size: 1rem;
             transition: all 0.3s ease;
-            width: 100%;
-            text-align: center;
         }
 
         .btn-primary:hover {
@@ -157,17 +230,17 @@
             animation: pulseGlow 1.5s infinite;
         }
 
-        .btn-secondary {
-            background-color: transparent;
-            border: 1px solid var(--border);
-            margin-top: 10px;
-        }
-        
-        .btn-secondary:hover {
-            border-color: var(--accent);
-            background: rgba(216, 98, 181, 0.05);
-            animation: none;
-            box-shadow: none;
+        /* Responsif HP untuk Hero */
+        @media (max-width: 850px) {
+            header {
+                flex-direction: column;
+                justify-content: center;
+                text-align: center;
+                padding-top: 150px;
+            }
+            .hero-content { text-align: center; margin-bottom: 50px; }
+            .hero-content p { margin: 0 auto 2.5rem; }
+            .hero-visual { display: none; /* Sembunyikan panel kanan di HP agar rapi */ }
         }
 
         /* Bagian Produk */
@@ -256,7 +329,7 @@
             color: var(--text);
         }
 
-        /* --- MODAL / POPUP CSS --- */
+        /* --- MODAL / POPUP CSS (DIPERBAIKI AGAR TIDAK KEPANJANGAN DI HP) --- */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
@@ -266,7 +339,7 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 20px;
+            padding: 15px; /* Memberi jarak agar modal tidak nempel ujung layar */
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -282,7 +355,7 @@
             border-radius: 24px;
             width: 100%;
             max-width: 450px;
-            padding: 35px;
+            padding: 35px 25px; /* Padding diatur u/ scroll */
             position: relative;
             transform: translateY(30px) scale(0.95);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -293,6 +366,17 @@
             transform: translateY(0) scale(1);
         }
 
+        /* Bagian ini membuat isi modal bisa digeser ke bawah jika kepanjangan */
+        .scrollable-area {
+            max-height: 65vh; /* Batas maksimal tinggi adalah 65% dari layar */
+            overflow-y: auto; /* Memunculkan scroll otomatis jika lebih dari batas */
+            padding-right: 10px; /* Jarak untuk scrollbar */
+        }
+        
+        /* Modifikasi Scrollbar agar keren */
+        .scrollable-area::-webkit-scrollbar { width: 5px; }
+        .scrollable-area::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
         .close-btn {
             position: absolute;
             top: 20px;
@@ -302,6 +386,7 @@
             cursor: pointer;
             transition: color 0.3s, transform 0.3s;
             line-height: 1;
+            z-index: 10; /* Selalu di atas */
         }
 
         .close-btn:hover {
@@ -309,7 +394,7 @@
             transform: rotate(90deg);
         }
 
-        #m-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 5px; }
+        #m-title { font-size: 1.8rem; font-weight: 800; margin-bottom: 5px; margin-top: 10px;}
         #m-price { font-size: 1.6rem; font-weight: 800; color: var(--accent); margin-bottom: 20px; }
         
         #m-desc {
@@ -336,7 +421,6 @@
             background: rgba(0,0,0,0.2);
         }
 
-        /* Ikon SVG Pembayaran Kustom */
         .pay-icon {
             width: 30px;
             height: 30px;
@@ -356,6 +440,10 @@
         .pay-input:checked + .pay-box .pay-icon { fill: var(--accent); }
         .pay-input:checked + .pay-box .pay-text { color: var(--text); }
 
+        .btn-full { width: 100%; text-align: center; }
+        .btn-secondary { background: transparent; border: 1px solid var(--border); margin-top: 10px; }
+        .btn-secondary:hover { border-color: var(--accent); background: rgba(216, 98, 181, 0.05); animation: none; }
+
         /* Footer */
         footer {
             text-align: center;
@@ -371,19 +459,36 @@
         footer a:hover { text-decoration: underline; }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;"> <!-- Disable klik kanan / menu panjang di seluruh body -->
 
     <!-- Navigasi -->
     <nav>
         <a href="#" class="logo">RENXXNO</a>
     </nav>
 
-    <!-- Sambutan (Hero) -->
+    <!-- Sambutan (Hero) Asimetris Kiri-Kanan -->
     <header id="home">
-        <div class="hero-badge">Lua Scripts </div>
-        <h1>Elevate Your<br><span>SAMP Experience</span></h1>
-        <p>Koleksi script Lua Monetloader terbaik buatan Renxxno. Dioptimalkan untuk performa maksimal, ringan, dan bebas lag.</p>
-        <a href="#store" class="btn-primary" style="width: auto;">Jelajahi Produk</a>
+        <!-- Bagian Kiri (Teks & Tombol) -->
+        <div class="hero-content">
+            <div class="hero-badge">⚡ The Ultimate Setup</div>
+            <h1>Script Lua<br><span>Monetloader</span> Kelas Atas</h1>
+            <p>Tingkatkan performa dan pengalaman bermain SAMP kamu dengan barisan script premium buatan Renxxno. Cepat, ringan, elegan, dan pastinya bebas lag.</p>
+            <a href="#store" class="btn-primary">Jelajahi Produk</a>
+        </div>
+        
+        <!-- Bagian Kanan (Hiasan Panel Glassmorphism) -->
+        <div class="hero-visual">
+            <div class="glass-panel">
+                <div class="dot-group">
+                    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                </div>
+                <div class="code-line w-short"></div>
+                <div class="code-line w-long"></div>
+                <div class="code-line w-mid"></div>
+                <div class="code-line w-long" style="margin-top:20px; opacity: 0.5;"></div>
+                <div class="code-line w-mid" style="opacity: 0.5;"></div>
+            </div>
+        </div>
     </header>
         <!-- Daftar Produk -->
     <section class="products" id="store">
@@ -446,7 +551,7 @@
                 </div>
             </div>
             
-            <!-- Produk 6 (Diubah jadi Request) -->
+            <!-- Produk 6 (Request) -->
             <div class="card" onclick="openProduct('Request Monetloader Lua', 'Mulai Rp 10.000', 'Custom Script', '🛠️ JASA PEMBUATAN SCRIPT CUSTOM 🛠️\n\nPunya ide script sendiri? Kami bisa buatkan khusus untukmu!\n\nKetentuan:\n• Harga menyesuaikan tingkat kesulitan dan banyaknya fitur yang diminta (Mulai dari 10K).\n• Script dijamin bersih, ringan, dan sesuai permintaan.\n• Revisi jika ada error dari pihak kami.\n\nHubungi kami untuk mendiskusikan fitur yang kamu inginkan.')">
                 <span class="card-tag">Custom Script</span>
                 <h3>Request Monetloader Lua</h3>
@@ -470,51 +575,54 @@
     <!-- ================= MODAL / POPUP DETAIL PRODUK ================= -->
     <div class="modal-overlay" id="productModal">
         <div class="modal-content">
+            <!-- Tombol Close Tetap Terlihat di Kanan Atas -->
             <span class="close-btn" onclick="closeModal()">×</span>
             
-            <div id="step-1">
-                <span class="card-tag" id="m-tag" style="margin-bottom: 12px; font-size: 0.8rem;">Kategori</span>
-                <h2 id="m-title">Nama Produk</h2>
-                <div id="m-price">Rp 0</div>
-                <p id="m-desc">Deskripsi lengkap produk akan muncul di sini.</p>
+            <!-- AREA SCROLL: Agar modal panjang di HP bisa di-scroll ke bawah -->
+            <div class="scrollable-area">
                 
-                <button class="btn-primary" onclick="goToPayment()">Beli Sekarang</button>
-            </div>
-
-            <div id="step-2" style="display: none;">
-                <h2 style="margin-bottom: 5px;">Pilih Pembayaran</h2>
-                <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem;">Transaksi aman dan diproses cepat.</p>
-                
-                <div class="payment-section">
-                    <!-- Opsi QRIS -->
-                    <label class="pay-option">
-                        <input type="radio" name="payment_method" value="QRIS" class="pay-input" checked>
-                        <div class="pay-box">
-                            <!-- Ikon QRIS Kustom SVG -->
-                            <svg class="pay-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-2 3h2v2h-2v-2zm-3-3h2v2h-2v-2zm0 5h2v2h-2v-2zm3 2h2v2h-2v-2z"/>
-                            </svg>
-                            <span class="pay-text">QRIS (OVO, Dana, Spay)</span>
-                        </div>
-                    </label>
-
-                    <!-- Opsi BCA -->
-                    <label class="pay-option">
-                        <input type="radio" name="payment_method" value="Bank BCA" class="pay-input">
-                        <div class="pay-box">
-                            <!-- Ikon Bank Kustom SVG -->
-                            <svg class="pay-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17h20v2H2v-2zm2-7h2v5H4v-5zm4 0h2v5H8v-5zm4 0h2v5h-2v-5zm4 0h2v5h-2v-5z"/>
-                            </svg>
-                            <span class="pay-text">Bank BCA</span>
-                        </div>
-                    </label>
+                <div id="step-1">
+                    <span class="card-tag" id="m-tag" style="margin-bottom: 12px; font-size: 0.8rem;">Kategori</span>
+                    <h2 id="m-title">Nama Produk</h2>
+                    <div id="m-price">Rp 0</div>
+                    <p id="m-desc">Deskripsi lengkap produk akan muncul di sini.</p>
+                    
+                    <button class="btn-primary btn-full" onclick="goToPayment()">Beli Sekarang</button>
                 </div>
 
-                <button class="btn-primary" onclick="processCheckout()">Lanjutkan ke WhatsApp</button>
-                <button class="btn-primary btn-secondary" onclick="backToDetail()">Kembali ke Detail</button>
-            </div>
-            
+                <div id="step-2" style="display: none;">
+                    <h2 style="margin-bottom: 5px;">Pilih Pembayaran</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem;">Transaksi aman dan diproses cepat.</p>
+                    
+                    <div class="payment-section">
+                        <!-- Opsi QRIS -->
+                        <label class="pay-option">
+                            <input type="radio" name="payment_method" value="QRIS" class="pay-input" checked>
+                            <div class="pay-box">
+                                <svg class="pay-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-2 3h2v2h-2v-2zm-3-3h2v2h-2v-2zm0 5h2v2h-2v-2zm3 2h2v2h-2v-2z"/>
+                                </svg>
+                                <span class="pay-text">QRIS (OVO, Dana, Spay)</span>
+                            </div>
+                        </label>
+
+                        <!-- Opsi BCA -->
+                        <label class="pay-option">
+                            <input type="radio" name="payment_method" value="Bank BCA" class="pay-input">
+                            <div class="pay-box">
+                                <svg class="pay-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17h20v2H2v-2zm2-7h2v5H4v-5zm4 0h2v5H8v-5zm4 0h2v5h-2v-5zm4 0h2v5h-2v-5z"/>
+                                </svg>
+                                <span class="pay-text">Bank BCA</span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button class="btn-primary btn-full" onclick="processCheckout()">Lanjutkan ke WhatsApp</button>
+                    <button class="btn-primary btn-full btn-secondary" onclick="backToDetail()">Kembali ke Detail</button>
+                </div>
+
+            </div> <!-- Tutup Scrollable Area -->
         </div>
     </div>
 
@@ -574,7 +682,6 @@
 
             const waNumber = "6285749776994";
             
-            // Logika khusus jika yang dipilih adalah "Request Monetloader"
             let textMessage = "";
             if(currentProduct.name === "Request Monetloader Lua") {
                 textMessage = `Halo Renxxno! Saya ingin *${currentProduct.name}*.%0A%0A` +
@@ -596,4 +703,3 @@
     </script>
 </body>
 </html>
-
