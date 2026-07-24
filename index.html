@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Renxxno Store | Beranda</title>
+    <title>Renxxno Store | Premium Digital Assets</title>
     
     <!-- Font modern 'Outfit' dari Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* === PALET WARNA MENYESUAIKAN LOGO (KONSISTEN) === */
+        /* === PALET WARNA MENYESUAIKAN LOGO === */
         :root {
             --bg: #09060f;             
             --surface: #140d1f;        
@@ -21,7 +21,7 @@
             --gradient-primary: linear-gradient(90deg, #4B23A5 0%, #9B2CA3 50%, #D82A7C 100%);
         }
 
-        /* Reset CSS dasar & Keamanan (Anti Copy/Popup) */
+        /* Reset CSS dasar & Keamanan */
         * {
             margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif;
             -webkit-tap-highlight-color: transparent; outline: none !important; 
@@ -35,102 +35,125 @@
         a, img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; }
 
         /* --- ANIMASI --- */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes glowPulse { 
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.15; } 
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.25; } 
+            100% { transform: translate(-50%, -50%) scale(1); opacity: 0.15; } 
+        }
 
         /* --- NAVIGASI --- */
         nav {
             position: fixed; width: 100%; top: 0; z-index: 100;
-            background: rgba(9, 6, 15, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid var(--border); padding: 15px 5%;
+            background: rgba(9, 6, 15, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.03); padding: 18px 5%;
             display: flex; justify-content: center; align-items: center;
         }
 
         .logo {
-            font-size: 1.8rem; font-weight: 800; letter-spacing: 2px;
+            font-size: 1.6rem; font-weight: 800; letter-spacing: 3px;
             background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-decoration: none;
+            text-decoration: none; text-transform: uppercase;
         }
 
-        /* --- HEADER / HERO SECTION --- */
+        /* --- HEADER / HERO SECTION (TERPUSAT, MINIMALIS, ELEGAN) --- */
         header {
-            min-height: 100vh; display: flex; align-items: center; justify-content: space-between;
-            padding: 120px 8% 50px; background: var(--bg); position: relative; overflow: hidden;
+            min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 0 5%; background: var(--bg); position: relative; overflow: hidden; text-align: center;
         }
 
+        /* Efek Cahaya Estetik di Tengah Latar Belakang */
         header::before {
-            content: ''; position: absolute; width: 800px; height: 800px;
-            background: radial-gradient(circle, rgba(155, 44, 163, 0.12) 0%, transparent 60%);
-            top: -250px; right: -200px; border-radius: 50%; z-index: 0;
+            content: ''; position: absolute; width: 60vw; height: 60vw; max-width: 800px; max-height: 800px;
+            background: var(--gradient-primary); filter: blur(120px); border-radius: 50%;
+            top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0;
+            animation: glowPulse 8s infinite ease-in-out;
         }
 
-        .hero-content { flex: 1; max-width: 650px; position: relative; z-index: 2; text-align: left; animation: fadeIn 1s forwards; }
+        .hero-content {
+            position: relative; z-index: 2; max-width: 800px; animation: fadeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
         
         .hero-badge {
-            display: inline-block; background: rgba(216, 42, 124, 0.08); color: var(--pink-logo);
-            padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;
-            margin-bottom: 1.5rem; border: 1px solid rgba(216, 42, 124, 0.2); text-transform: uppercase; letter-spacing: 1.5px;
+            display: inline-block; background: transparent; color: var(--pink-logo);
+            padding: 6px 16px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;
+            margin-bottom: 1.5rem; border: 1px solid rgba(216, 42, 124, 0.3); letter-spacing: 2px; text-transform: uppercase;
         }
 
-        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; margin-bottom: 1.2rem; line-height: 1.1; }
+        .hero-content h1 { font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 800; margin-bottom: 1.5rem; line-height: 1.05; letter-spacing: -1px; }
         .hero-content h1 span { background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-content p { color: var(--text-muted); font-size: 1.15rem; max-width: 550px; }
-
-        .hero-visual { flex: 1; display: flex; justify-content: flex-end; position: relative; z-index: 1; animation: float 6s ease-in-out infinite; }
-
-        /* Panel Kaca Dekoratif di Kanan */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(155, 44, 163, 0.25);
-            backdrop-filter: blur(12px); border-radius: 24px; padding: 35px; width: 380px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .glass-panel .dot-group { display: flex; gap: 8px; margin-bottom: 25px; }
-        .glass-panel .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .glass-panel .dot:nth-child(1) { background: #ff5f56; }
-        .glass-panel .dot:nth-child(2) { background: #ffbd2e; }
-        .glass-panel .dot:nth-child(3) { background: #27c93f; }
-        .glass-panel .code-line { height: 12px; background: rgba(255,255,255,0.07); border-radius: 10px; margin-bottom: 15px; }
-        .glass-panel .code-line.w-short { width: 45%; background: var(--gradient-primary); }
-        .glass-panel .code-line.w-long { width: 90%; }
-        .glass-panel .code-line.w-mid { width: 70%; }
-
-        @media (max-width: 850px) {
-            header { flex-direction: column; justify-content: center; text-align: center; padding-top: 140px; }
-            .hero-content { text-align: center; }
-            .hero-content p { margin: 0 auto; }
-            .hero-visual { display: none; }
-        }
+        
+        .hero-content p { color: var(--text-muted); font-size: 1.15rem; max-width: 600px; margin: 0 auto; line-height: 1.8; }
 
         /* --- KATEGORI PRODUK UTAMA --- */
-        .categories-section { padding: 80px 5% 120px; max-width: 1000px; margin: 0 auto; animation: fadeIn 1.5s forwards; }
-        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; font-weight: 800; }
-        .section-desc { text-align: center; color: var(--text-muted); margin-bottom: 4rem; }
+        .categories-section { padding: 100px 5% 120px; max-width: 900px; margin: 0 auto; position: relative; z-index: 5; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; font-weight: 800; letter-spacing: -0.5px; }
+        .section-desc { text-align: center; color: var(--text-muted); margin-bottom: 4rem; font-size: 1.1rem; }
 
         .category-card {
-            background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 50px 30px;
+            background: var(--surface); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 50px 40px;
             text-align: center; text-decoration: none; color: var(--text); display: block;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .category-card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-            background: var(--gradient-primary); opacity: 0; transition: opacity 0.3s;
-        }
-        .category-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(75, 35, 165, 0.2); border-color: rgba(155, 44, 163, 0.5); }
-        .category-card:hover::before { opacity: 1; }
         
-        .category-icon { margin-bottom: 25px; display: inline-flex; justify-content: center; align-items: center; }
-        .category-icon svg { width: 48px; height: 48px; stroke: url(#grad1); }
-        .category-card h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; }
-        .category-card p { color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto 30px; }
-        .explore-text { font-weight: 600; color: var(--pink-logo); display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .category-card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 100%); pointer-events: none;
+        }
 
-        footer { text-align: center; padding: 3rem 5%; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; background: var(--surface); }
-        footer a { color: var(--pink-logo); text-decoration: none; font-weight: 600; }
-        footer a:hover { text-decoration: underline; }
+        .category-card:hover { transform: translateY(-12px); border-color: rgba(216, 42, 124, 0.4); box-shadow: 0 20px 50px rgba(75, 35, 165, 0.25); }
+        
+        .category-icon { margin-bottom: 30px; display: inline-flex; justify-content: center; align-items: center; }
+        .category-icon svg { width: 54px; height: 54px; stroke: url(#grad1); transition: transform 0.5s ease; }
+        .category-card:hover .category-icon svg { transform: scale(1.1); }
+        
+        .category-card h3 { font-size: 2rem; font-weight: 800; margin-bottom: 15px; letter-spacing: -0.5px; }
+        .category-card p { color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto 35px; line-height: 1.7; }
+        
+        .explore-text { font-weight: 600; color: var(--pink-logo); display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 1.05rem; }
+        .explore-text svg { transition: transform 0.3s ease; }
+        .category-card:hover .explore-text svg { transform: translateX(5px); }
+
+        /* --- FOOTER & DISCORD ICON (GAYA MINIMALIS MODERN) --- */
+        footer { 
+            text-align: center; padding: 4rem 5%; border-top: 1px solid rgba(255,255,255,0.05); 
+            background: var(--bg); display: flex; flex-direction: column; align-items: center; justify-content: center;
+        }
+        
+        .copyright { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 30px; }
+
+        .social-container {
+            display: flex; align-items: center; justify-content: center; gap: 18px;
+        }
+
+        .social-text {
+            font-size: 1.15rem; font-weight: 800; color: var(--text); letter-spacing: 0.5px;
+        }
+
+        .discord-link {
+            display: inline-flex; justify-content: center; align-items: center;
+            color: var(--text); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .discord-link svg {
+            width: 32px; height: 32px; fill: currentColor;
+        }
+
+        .discord-link:hover {
+            color: var(--pink-logo); transform: scale(1.15) translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.8rem; }
+            .category-card { padding: 40px 25px; }
+            .category-card h3 { font-size: 1.6rem; }
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
 
-    <!-- Definisi Gradasi SVG untuk Ikon -->
+    <!-- Definisi Gradasi SVG untuk Ikon Produk -->
     <svg style="width:0;height:0;position:absolute;" aria-hidden="true" focusable="false">
       <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
         <stop offset="0%" stop-color="#4B23A5" />
@@ -140,47 +163,33 @@
 
     <!-- Navigasi -->
     <nav>
-        <a href="#" class="logo">Renxxno Store</a>
+        <a href="#" class="logo">Renxxno</a>
     </nav>
-        <!-- Sambutan (Hero) Fokus Menjadi Platform Digital Luas -->
+        <!-- Sambutan (Hero) Terpusat & Elegan -->
     <header id="home">
         <div class="hero-content">
             <div class="hero-badge">Premium Digital Assets</div>
-            <h1>Selamat Datang<br><span>Renxxno Store</span></h1>
-            <p>Platform terpercaya untuk kebutuhan digital. Saat ini kami menghadirkan koleksi Skrip Monetloader kelas atas untuk memaksimalkan performa dan pengalaman bermain SAMP Anda.</p>
-        </div>
-        
-        <!-- Elemen Kanan (Dekorasi) -->
-        <div class="hero-visual">
-            <div class="glass-panel">
-                <div class="dot-group">
-                    <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-                </div>
-                <div class="code-line w-short"></div>
-                <div class="code-line w-long"></div>
-                <div class="code-line w-mid"></div>
-                <div class="code-line w-long" style="margin-top:20px; opacity: 0.3;"></div>
-                <div class="code-line w-mid" style="opacity: 0.3;"></div>
-            </div>
+            <h1>Selamat Datang di<br><span>Renxxno Store</span></h1>
+            <p>Platform terpercaya untuk kebutuhan digital. Kami menghadirkan koleksi skrip Monetloader kelas atas untuk memaksimalkan performa dan pengalaman bermain SAMP Anda dengan standar profesional.</p>
         </div>
     </header>
 
-    <!-- Kategori Produk -->
+    <!-- Kategori Produk Utama -->
     <section class="categories-section">
         <h2 class="section-title">Eksplorasi Katalog</h2>
-        <p class="section-desc">Pilih kategori produk digital yang sedang Anda cari.</p>
+        <p class="section-desc">Pilih kategori produk digital yang saat ini tersedia.</p>
         
-        <!-- Kartu Utama yang mengarah ke monetloader.html -->
+        <!-- Kartu Menuju Halaman Monetloader -->
         <a href="monetloader.html" class="category-card">
             <div class="category-icon">
-                <!-- Ikon SVG Formal Pengganti Emotikon -->
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <!-- Ikon SVG Garis Minimalis -->
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <polyline points="16 18 22 12 16 6"></polyline>
                     <polyline points="8 6 2 12 8 18"></polyline>
                 </svg>
             </div>
             <h3>Monetloader Lua Scripts</h3>
-            <p>Koleksi skrip Lua eksklusif dan kustomisasi in-game untuk mengoptimalkan gaya bermain Anda di GTA SAMP. Termasuk mod menu, ESP, optimasi FPS, dan utilitas pendukung lainnya.</p>
+            <p>Koleksi skrip Lua eksklusif dan kustomisasi in-game untuk mengoptimalkan gaya bermain Anda di GTA SAMP. Termasuk modifikasi antarmuka, optimasi sistem, dan utilitas pendukung lainnya.</p>
             <div class="explore-text">
                 Jelajahi Produk
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -188,12 +197,23 @@
         </a>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer Interaktif (Mengikuti Referensi Desain) -->
     <footer>
-        <p>&copy; 2026 Renxxno Store. Hak Cipta Dilindungi.</p>
-        <p style="margin-top: 10px;">
-            Bergabung dengan komunitas kami di <a href="https://discord.com/" target="_blank">Discord</a>
-        </p>
+        <div class="copyright">
+            &copy; 2026 Renxxno Store. Hak Cipta Dilindungi.
+        </div>
+        
+        <!-- Bagian Sosial Media Minimalis -->
+        <div class="social-container">
+            <span class="social-text">Follow us on:</span>
+            
+            <a href="https://discord.gg/7nPYsS3y5" target="_blank" class="discord-link" aria-label="Bergabung ke Discord Kami">
+                <!-- Ikon SVG Discord Asli & Minimalis -->
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/>
+                </svg>
+            </a>
+        </div>
     </footer>
 
 </body>
