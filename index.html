@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <style>
-        /* === PALET WARNA MENYESUAIKAN LOGO (KONSISTEN) === */
+        /* === PALET WARNA MENYESUAIKAN LOGO === */
         :root {
             --bg: #09060f;             
             --surface: #140d1f;        
@@ -19,10 +19,9 @@
             --purple-logo: #4B23A5;    
             --pink-logo: #D82A7C;      
             --gradient-primary: linear-gradient(90deg, #4B23A5 0%, #9B2CA3 50%, #D82A7C 100%);
-            --gradient-hover: linear-gradient(90deg, #5b2bc9 0%, #b835c2 50%, #f7318f 100%);
         }
 
-        /* Reset CSS dasar & Keamanan (Anti Copy/Popup) */
+        /* Reset CSS dasar & Keamanan */
         * {
             margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif;
             -webkit-tap-highlight-color: transparent; outline: none !important; 
@@ -35,10 +34,9 @@
 
         a, img { -webkit-user-drag: none; user-drag: none; -webkit-touch-callout: none; }
 
-        /* --- ANIMASI --- */
+        /* --- ANIMASI MINIMALIS --- */
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
-        @keyframes pulseGlow { 0% { box-shadow: 0 0 15px rgba(216, 42, 124, 0.3); } 50% { box-shadow: 0 0 30px rgba(75, 35, 165, 0.6); } 100% { box-shadow: 0 0 15px rgba(216, 42, 124, 0.3); } }
 
         /* --- NAVIGASI --- */
         nav {
@@ -48,10 +46,24 @@
             display: flex; justify-content: center; align-items: center;
         }
 
-        .logo {
-            font-size: 1.8rem; font-weight: 800; letter-spacing: 2px;
-            background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-decoration: none;
+        .logo-container {
+            display: flex; align-items: center; justify-content: center; text-decoration: none;
+        }
+
+        .nav-logo {
+            height: 45px; /* Ukuran proporsional, elegan dan tidak berlebihan */
+            width: auto;
+            display: block;
+            border-radius: 8px;
+            /* Trik CSS untuk membantu menyatukan gambar JPG dengan tema gelap */
+            mix-blend-mode: screen; 
+            filter: drop-shadow(0 0 12px rgba(155, 44, 163, 0.3));
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+
+        .nav-logo:hover {
+            transform: scale(1.03);
+            filter: drop-shadow(0 0 20px rgba(216, 42, 124, 0.5));
         }
 
         /* --- HEADER / HERO SECTION --- */
@@ -62,56 +74,48 @@
 
         header::before {
             content: ''; position: absolute; width: 800px; height: 800px;
-            background: radial-gradient(circle, rgba(155, 44, 163, 0.15) 0%, transparent 60%);
+            background: radial-gradient(circle, rgba(155, 44, 163, 0.12) 0%, transparent 60%);
             top: -250px; right: -200px; border-radius: 50%; z-index: 0;
         }
 
         .hero-content { flex: 1; max-width: 650px; position: relative; z-index: 2; text-align: left; animation: fadeIn 1s forwards; }
         
         .hero-badge {
-            display: inline-block; background: rgba(216, 42, 124, 0.1); color: var(--pink-logo);
+            display: inline-block; background: rgba(216, 42, 124, 0.08); color: var(--pink-logo);
             padding: 8px 18px; border-radius: 50px; font-size: 0.85rem; font-weight: 600;
-            margin-bottom: 1.5rem; border: 1px solid rgba(216, 42, 124, 0.25); text-transform: uppercase; letter-spacing: 1px;
+            margin-bottom: 1.5rem; border: 1px solid rgba(216, 42, 124, 0.2); text-transform: uppercase; letter-spacing: 2px;
         }
 
         .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.1; }
         .hero-content h1 span { background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero-content p { color: var(--text-muted); font-size: 1.15rem; margin-bottom: 2.5rem; max-width: 550px; }
 
-        /* Tombol Pintasan ke Halaman Lua */
-        .btn-primary {
-            display: inline-block; padding: 16px 40px; background: var(--gradient-primary); color: #ffffff;
-            text-decoration: none; border-radius: 50px; font-weight: 600; border: none; cursor: pointer;
-            font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 8px 20px rgba(155, 44, 163, 0.3);
-        }
-        .btn-primary:hover { background: var(--gradient-hover); transform: translateY(-3px) scale(1.02); animation: pulseGlow 2s infinite; }
-
         .hero-visual { flex: 1; display: flex; justify-content: flex-end; position: relative; z-index: 1; animation: float 6s ease-in-out infinite; }
 
-        /* Panel Kaca Dekoratif di Kanan */
+        /* Panel Kaca Dekoratif di Kanan (Estetika Modern) */
         .glass-panel {
-            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(155, 44, 163, 0.3);
-            backdrop-filter: blur(12px); border-radius: 24px; padding: 35px; width: 380px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(155, 44, 163, 0.2);
+            backdrop-filter: blur(12px); border-radius: 24px; padding: 35px; width: 380px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
         .glass-panel .dot-group { display: flex; gap: 8px; margin-bottom: 25px; }
         .glass-panel .dot { width: 12px; height: 12px; border-radius: 50%; }
         .glass-panel .dot:nth-child(1) { background: #ff5f56; }
         .glass-panel .dot:nth-child(2) { background: #ffbd2e; }
         .glass-panel .dot:nth-child(3) { background: #27c93f; }
-        .glass-panel .code-line { height: 12px; background: rgba(255,255,255,0.07); border-radius: 10px; margin-bottom: 15px; }
+        .glass-panel .code-line { height: 12px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 15px; }
         .glass-panel .code-line.w-short { width: 45%; background: var(--gradient-primary); }
         .glass-panel .code-line.w-long { width: 90%; }
         .glass-panel .code-line.w-mid { width: 70%; }
 
         @media (max-width: 850px) {
             header { flex-direction: column; justify-content: center; text-align: center; padding-top: 140px; }
-            .hero-content { text-align: center; margin-bottom: 50px; }
-            .hero-content p { margin: 0 auto 2.5rem; }
+            .hero-content { text-align: center; margin-bottom: 20px; }
+            .hero-content p { margin: 0 auto; }
             .hero-visual { display: none; }
         }
 
-        /* --- KATEGORI PRODUK UTAMA --- */
-        .categories-section { padding: 80px 5% 120px; max-width: 1000px; margin: 0 auto; animation: fadeIn 1.5s forwards; }
+        /* --- KATEGORI PRODUK --- */
+        .categories-section { padding: 40px 5% 120px; max-width: 1000px; margin: 0 auto; animation: fadeIn 1.5s forwards; }
         .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; font-weight: 800; }
         .section-desc { text-align: center; color: var(--text-muted); margin-bottom: 4rem; }
 
@@ -124,13 +128,14 @@
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
             background: var(--gradient-primary); opacity: 0; transition: opacity 0.3s;
         }
-        .category-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(75, 35, 165, 0.2); border-color: rgba(155, 44, 163, 0.5); }
+        .category-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(75, 35, 165, 0.15); border-color: rgba(155, 44, 163, 0.4); }
         .category-card:hover::before { opacity: 1; }
         
-        .category-icon { font-size: 3rem; margin-bottom: 20px; display: inline-block; background: var(--gradient-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .category-icon { margin-bottom: 25px; display: flex; justify-content: center; align-items: center; }
         .category-card h3 { font-size: 1.8rem; font-weight: 800; margin-bottom: 15px; }
         .category-card p { color: var(--text-muted); font-size: 1rem; max-width: 600px; margin: 0 auto 30px; }
-        .explore-text { font-weight: 600; color: var(--pink-logo); display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .explore-text { font-weight: 600; color: var(--pink-logo); display: flex; align-items: center; justify-content: center; gap: 8px; transition: gap 0.3s; }
+        .category-card:hover .explore-text { gap: 12px; }
 
         footer { text-align: center; padding: 3rem 5%; border-top: 1px solid var(--border); color: var(--text-muted); font-size: 0.9rem; background: var(--surface); }
         footer a { color: var(--pink-logo); text-decoration: none; font-weight: 600; }
@@ -138,24 +143,24 @@
     </style>
 </head>
 <body oncontextmenu="return false;">
-        <!-- Navigasi -->
+    <!-- Navigasi -->
     <nav>
-        <!-- Teks Logo Menggunakan Gradasi Warna Logo Baru -->
-        <a href="#" class="logo">Renxxno Store</a>
+        <!-- Integrasi Logo Kustom Presisi -->
+        <a href="#" class="logo-container">
+            <img src="https://i.ibb.co.com/C56Nn97M/Renxxno-Store.jpg" alt="Renxxno Store Logo" class="nav-logo">
+        </a>
     </nav>
 
-    <!-- Sambutan (Hero) Fokus Menjadi Platform Digital Luas -->
+    <!-- Sambutan (Hero) Elegan & Bersih -->
     <header id="home">
         <div class="hero-content">
-            <div class="hero-badge">⚡ Premium Digital Assets</div>
+            <div class="hero-badge">Premium Digital Assets</div>
             <h1>Selamat Datang di<br><span>Renxxno Store</span></h1>
-            <p>Platform terpercaya untuk kebutuhan digitalmu. Saat ini kami menghadirkan koleksi Skrip Monetloader kelas atas untuk memaksimalkan performa dan pengalaman bermain SAMP Anda.</p>
-            
-            <!-- Tombol Spesifik Sesuai Permintaan (Langsung mengarah ke monetloader.html) -->
-            <a href="monetloader.html" class="btn-primary">Lihat Produk Monetloader Lua GTA SAMP</a>
+            <p>Platform terpercaya untuk kebutuhan digital Anda. Saat ini kami menghadirkan koleksi Skrip Monetloader kelas atas untuk memaksimalkan performa dan pengalaman bermain SAMP Anda.</p>
+            <!-- Tombol besar dihapus sesuai instruksi untuk menjaga estetika minimalis -->
         </div>
         
-        <!-- Elemen Kanan (Dekorasi) -->
+        <!-- Elemen Visual Abstrak (Hiasan Kanan) -->
         <div class="hero-visual">
             <div class="glass-panel">
                 <div class="dot-group">
@@ -170,28 +175,40 @@
         </div>
     </header>
 
-    <!-- Kategori Produk (Saat ini fokus menampilkan Monetloader) -->
+    <!-- Kategori Produk (Fokus Menampilkan Monetloader Tanpa Emotikon) -->
     <section class="categories-section">
         <h2 class="section-title">Eksplorasi Katalog</h2>
         <p class="section-desc">Pilih kategori produk digital yang sedang Anda cari.</p>
         
         <!-- Kartu Utama yang mengarah ke monetloader.html -->
         <a href="monetloader.html" class="category-card">
-            <div class="category-icon">✦</div>
+            <div class="category-icon">
+                <!-- Ikon Code Minimalis Bergradasi Menggantikan Emotikon -->
+                <svg width="45" height="45" viewBox="0 0 24 24" fill="none" stroke="url(#gradIcon)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <defs>
+                        <linearGradient id="gradIcon" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#4B23A5" />
+                            <stop offset="100%" stop-color="#D82A7C" />
+                        </linearGradient>
+                    </defs>
+                    <polyline points="16 18 22 12 16 6"></polyline>
+                    <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+            </div>
             <h3>Monetloader Lua Scripts</h3>
-            <p>Koleksi script Lua eksklusif dan kustomisasi in-game untuk mengoptimalkan gaya bermain Anda di GTA SAMP. Termasuk mod menu, ESP, optimasi FPS, dan utility lainnya.</p>
+            <p>Koleksi skrip Lua eksklusif dan kustomisasi sistem untuk mengoptimalkan gaya bermain Anda di GTA SAMP. Termasuk pengaturan menu, optimasi performa, dan fungsionalitas tambahan lainnya.</p>
             <div class="explore-text">
-                Jelajahi Produk
+                Lihat Detail Produk
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
             </div>
         </a>
     </section>
 
-    <!-- Footer -->
+    <!-- Footer Formal -->
     <footer>
-        <p>&copy; 2026 Renxxno Store. All rights reserved.</p>
+        <p>&copy; 2026 Renxxno Store. Hak Cipta Dilindungi.</p>
         <p style="margin-top: 10px;">
-            Bergabung dengan komunitas kami di <a href="https://discord.com/" target="_blank">Discord</a>
+            Bergabung dengan komunitas kami melalui <a href="https://discord.com/" target="_blank">Discord</a>
         </p>
     </footer>
 
